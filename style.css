@@ -1,0 +1,15 @@
+.grid {
+  /* border: 2px blue solid; */
+  height: auto;
+  width: auto;
+  display: grid;
+  grid-template: 1fr 20px;
+}
+
+.grid #refresh {
+  grid-row: 2 / span 1;
+}
+
+.grid #stream {
+  grid-row: 1 / span 1;
+}
