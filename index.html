@@ -14,15 +14,22 @@
             var $stream = $('#stream');
             // $body.html('');
 
+            var previousIndex = 0;
+            var currentDate = new Date();
             var clickHandler = function(){
+              var $tweet = $('<div></div>');
+              $tweet.html('New tweets since: ' + currentDate);
+              $tweet.appendTo($stream);
               var index = streams.home.length - 1;
-              while(index >= 0){
+              while(index >= previousIndex){
                 var tweet = streams.home[index];
-                var $tweet = $('<div></div>');
-                $tweet.text('@' + tweet.user + ': ' + tweet.message);
+                $tweet = $('<div></div>');
+                $tweet.text('@' + tweet.user + ': ' + tweet.message + ' Created on: ' + tweet.created_at);
                 $tweet.appendTo($stream);
                 index -= 1;
               }
+              previousIndex = streams.home.length;
+              currentDate = new Date();
             }
 
             clickHandler();
