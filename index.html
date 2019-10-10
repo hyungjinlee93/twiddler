@@ -7,38 +7,52 @@
   </head>
   <body>
     <div class="grid">
-      <div id="stream">
-        <script>
+      <script>
 
-          $(document).ready(function(){
-            var $stream = $('#stream');
-            // $body.html('');
+        $(document).ready(function(){
+          var $stream = $('.stream');
 
-            var previousIndex = 0;
-            var currentDate = new Date();
-            var clickHandler = function(){
-              var $tweet = $('<div></div>');
-              $tweet.html('New tweets since: ' + currentDate);
+          var previousIndex = 0;
+          var currentDate = new Date();
+
+          var clickHandler = function(){
+            $stream.html('');
+            var $tweet = $('<div></div>');
+            $tweet.html('New tweets since: ' + currentDate);
+            $tweet.appendTo($stream);
+            var index = streams.home.length - 1;
+            while(index >= previousIndex){
+              var tweet = streams.home[index];
+              $tweet = $('<div></div>');
+              $tweet.html("<p id=personalTweet>"+'@' + tweet.user + ': ' + tweet.message + "</p>" + "<p id=createdDate>" + 'Created on: ' + tweet.created_at + "</p>");
               $tweet.appendTo($stream);
-              var index = streams.home.length - 1;
-              while(index >= previousIndex){
-                var tweet = streams.home[index];
-                $tweet = $('<div></div>');
-                $tweet.text('@' + tweet.user + ': ' + tweet.message + ' Created on: ' + tweet.created_at);
-                $tweet.appendTo($stream);
-                index -= 1;
-              }
-              previousIndex = streams.home.length;
-              currentDate = new Date();
+              index -= 1;
             }
+            previousIndex = streams.home.length;
+            currentDate = new Date();
+          }
 
-            clickHandler();
+          // var userClick = function(){
+          //   $stream.html('');
+          //   var index = streams.users.length - 1;
+          //   while(index >= previousIndex){
+          //     var tweet = streams.home[index];
+          //     $tweet = $('<div></div>');
+          //     $tweet.html('@' + tweet.user + ': ' + tweet.message + ' Created on: ' + tweet.created_at);
+          //     $tweet.appendTo($stream);
+          //     index -= 1;
+          //   }
+          //   previousIndex = streams.home.length;
+          //   currentDate = new Date();
+          // }
 
-            $('#refresh').on('click', clickHandler);
-          });
+          clickHandler();
 
-        </script>
-      </div>
+          $('#refresh').on('click', clickHandler);
+        });
+
+      </script>
+      <div class="stream"></div>
       <button class="btn btn-default target" id="refresh">Refresh Tweets</button>
     </div>
   </body>
