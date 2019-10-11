@@ -3,10 +3,14 @@
   height: auto;
   width: auto;
   display: grid;
-  grid-template: 1fr 20px;
+  grid-template: 1fr 20px / 1fr 1fr;
 }
 
-.grid #refresh {
+#refresh {
+  grid-row: 2 / span 1;
+}
+
+#show {
   grid-row: 2 / span 1;
 }
 
@@ -19,8 +23,11 @@
   padding-top: 1px;
   border-top-width: 1px;
   font-size: 0.8em;
+  font-style: italic;
 }
-#personalTweet {
+
+
+.createdTweet {
   margin-bottom: 1px;
   padding-bottom: 1px;
   border-bottom-width: 1px;

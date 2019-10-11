@@ -16,44 +16,54 @@
           var currentDate = new Date();
 
           var clickHandler = function(){
-            $stream.html('');
             var $tweet = $('<div></div>');
             $tweet.html('New tweets since: ' + currentDate);
             $tweet.appendTo($stream);
             var index = streams.home.length - 1;
             while(index >= previousIndex){
-              var tweet = streams.home[index];
+              let tweet = streams.home[index];
               $tweet = $('<div></div>');
-              $tweet.html("<p id=personalTweet>"+'@' + tweet.user + ': ' + tweet.message + "</p>" + "<p id=createdDate>" + 'Created on: ' + tweet.created_at + "</p>");
+              $tweet.html("<div class="+tweet.user+">" + "<p class=createdTweet>" + "<button>" + '@' + tweet.user + "</button>" + ': ' + tweet.message + "</p>" + "<p id=createdDate>" + 'Created on: ' + tweet.created_at + "</p>" + "</div>");
               $tweet.appendTo($stream);
               index -= 1;
             }
             previousIndex = streams.home.length;
             currentDate = new Date();
+
+            $('.shawndrost .createdTweet button').on('click', {
+              name: ".shawndrost"
+            }, hideOtherUsers);
+            $('.sharksforcheap .createdTweet button').on('click', {
+              name: ".sharksforcheap"
+            }, hideOtherUsers);
+            $('.mracus .createdTweet button').on('click', {
+              name: ".mracus"
+            }, hideOtherUsers);
+            $('.douglascalhoun .createdTweet button').on('click', {
+              name: ".douglascalhoun"
+            }, hideOtherUsers);
           }
 
-          // var userClick = function(){
-          //   $stream.html('');
-          //   var index = streams.users.length - 1;
-          //   while(index >= previousIndex){
-          //     var tweet = streams.home[index];
-          //     $tweet = $('<div></div>');
-          //     $tweet.html('@' + tweet.user + ': ' + tweet.message + ' Created on: ' + tweet.created_at);
-          //     $tweet.appendTo($stream);
-          //     index -= 1;
-          //   }
-          //   previousIndex = streams.home.length;
-          //   currentDate = new Date();
-          // }
+          var showUsers = function(){
+            $('.stream div div').show();
+            $('#refresh').show();
+          }
+
+          var hideOtherUsers = function(event){
+            $('.stream div div').not(event.data.name).hide();
+            $('#refresh').hide();
+          }
 
           clickHandler();
 
           $('#refresh').on('click', clickHandler);
+          $('#show').on('click', showUsers);
         });
 
       </script>
       <div class="stream"></div>
-      <button class="btn btn-default target" id="refresh">Refresh Tweets</button>
+      <button id="refresh">Refresh Tweets</button>
+      <button id="show">Show All Tweets</button>
     </div>
   </body>
 </html>
