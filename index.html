@@ -10,6 +10,7 @@
       <script>
 
         $(document).ready(function(){
+          $('#show').hide();
           var $stream = $('.stream');
 
           var previousIndex = 0;
@@ -29,7 +30,6 @@
             }
             previousIndex = streams.home.length;
             currentDate = new Date();
-
             $('.shawndrost .createdTweet button').on('click', {
               name: ".shawndrost"
             }, hideOtherUsers);
@@ -47,11 +47,14 @@
           var showUsers = function(){
             $('.stream div div').show();
             $('#refresh').show();
+            $('#show').hide();
+
           }
 
           var hideOtherUsers = function(event){
             $('.stream div div').not(event.data.name).hide();
             $('#refresh').hide();
+            $('#show').show();
           }
 
           clickHandler();
